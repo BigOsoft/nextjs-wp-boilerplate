@@ -70,7 +70,7 @@ A highly scalable foundation for your next endavour with the following tech stac
 1.  Clone this repo using: `git clone -b NextJS-WP-Boilerplate https://github.com/abwahab3306/nextjs-store.git`
 2.  Change the directory: `cd nextjs-store`
 3.  Install the dependencies: `yarn install`
-4.  Create a wc-config.ts file using the example file provided.
+4.  Create a `.env.local` file using the example file provided.
 5.  Place your WooCommerce Credentials.
 6.  Run using: `yarn dev`
 

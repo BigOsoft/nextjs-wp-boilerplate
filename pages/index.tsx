@@ -1,8 +1,9 @@
 import MainLayout from '../layouts/mainLayout'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Grid} from "@material-ui/core";
+import {exampleRequest} from "../wc/index";
 
-const Home: React.FC = () => {
+const Home = () => {
     return (
         <MainLayout>
             <Grid
@@ -27,6 +28,13 @@ const Home: React.FC = () => {
             </div>
         </MainLayout>
     )
+}
+
+export const getServerSideProps  = async() => {
+    exampleRequest().then(res=>console.log(res))
+    return {
+       props: {}
+    }
 }
 
 export default Home

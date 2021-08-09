@@ -1,19 +1,26 @@
-import keys from '../config/wc-config'
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+
+const api = new WooCommerceRestApi({
+    url: "https://cms.tejofficial.co/wp-json/wc/v3/products?per_page=25",
+    consumerKey: process.env.WC_CONSUMER_KEY,
+    consumerSecret: process.env.WC_CONSUMER_SECRET,
+    version: "wc/v3"
+});
 
 export const exampleRequest = async () => {
-    try {
-        const wc_response = await fetch (
-            'https://cors-anywhere.herokuapp.com/https://cms.tejofficial.co/wp-json/wc/v3/products?per_page=25',
-            {
-                headers: {
-                    'Authorization': `Basic ${Buffer.from(keys.WP_CONSUMER_KEY+':'+keys.WP_CONSUMER_SECRET).toString('base64')}`,
-                    'wpAPI': 'true',
-                    'Content-Type': 'application/json'
-                }
-            })
-        const data = await wc_response.json()
-        console.log(data)
-    } catch (error) {
-        console.log(error)
-    }
+    api.get("products", {
+        per_page: 20, // 20 products per page
+    })
+        .then((response) => {
+            // Successful request
+            console.log("Response Data:", response.data);
+            console.log("Total of pages:", response.headers['x-wp-totalpages']);
+            console.log("Total of items:", response.headers['x-wp-total']);
+        })
+        .catch((error) => {
+            // Invalid request, for 4xx and 5xx statuses
+            console.log("Response Status:", error.response.status);
+            console.log("Response Headers:", error.response.headers);
+            console.log("Response Data:", error.response.data);
+        })
 }
